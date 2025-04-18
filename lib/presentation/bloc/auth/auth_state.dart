@@ -31,3 +31,12 @@ class AuthError extends AuthState {
   @override
   List<Object> get props => [message];
 }
+
+class OfflineQueued extends AuthState {
+  final String message;
+  
+  const OfflineQueued(this.message);
+  
+  @override
+  List<Object> get props => [message];
+}

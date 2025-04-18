@@ -22,6 +22,10 @@ class NetworkFailure extends Failure {
   const NetworkFailure();
 }
 
+class OfflineQueuedFailure extends Failure {
+  const OfflineQueuedFailure();
+}
+
 class AuthenticationFailure extends Failure {
   final String message;
   
