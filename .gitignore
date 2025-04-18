@@ -1,3 +1,4 @@
 .aider*
 !.aider.chat.*
 grok/.venv
+deepseek/.venv
