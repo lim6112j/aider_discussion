@@ -13,8 +13,7 @@ def generate_image(prompt):
         response = client.images.generate(
             model="grok-2-image",
             prompt=prompt,
-            n=1,  # Number of images to generate
-            size="1024x1024"  # Image size
+            n=1  # Number of images to generate
         )
         image_url = response.data[0].url
         print(f"Generated image URL: {image_url}")
