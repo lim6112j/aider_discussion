@@ -23,6 +23,9 @@ for chunk in response:
         content += chunk.choices[0].delta.content
     else:
         content += ""
+print(content)
+print("\n-----------------------\n")
+print(reasoning_content + "\n")
 # Round 2
 messages.append({"role": "assistant", "content": content})
 messages.append(
