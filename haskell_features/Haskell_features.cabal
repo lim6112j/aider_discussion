@@ -1,7 +1,7 @@
 name:                Haskell_features
 version:             0.1.0.0
 build-type:          Simple
-cabal-version:       >=2.4
+cabal-version:       2.4
 
 executable Haskell_features
   main-is:             Main.hs
