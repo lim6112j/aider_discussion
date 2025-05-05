@@ -1,0 +1,14 @@
+
+## Features Demonstrated
+
+1. **Pure Functions**: The `add` function demonstrates referential transparency
+2. **Pattern Matching**: Used in `factorial` and `safeHead` functions
+3. **Type System**: Explicit type declarations for all functions
+4. **Recursion**: Factorial implementation using recursion
+5. **Safe Operations**: `safeHead` returns `Maybe a` instead of failing
+6. **Lazy Evaluation**: Haskell's default evaluation strategy
+
+To extend this project, you can:
+1. Add new modules in the `src` directory
+2. Add dependencies in the `.cabal` file
+3. Implement more complex algorithms demonstrating Haskell's unique features

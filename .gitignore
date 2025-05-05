@@ -2,3 +2,6 @@
 !.aider.chat.*
 grok/.venv
 deepseek/.venv
+dist-newstyle/
+*.hi
+*.o
