@@ -41,12 +41,10 @@ contTExample = ContT $ \k -> do
 type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
 
 combinedExample :: Int -> String -> CombinedTransformer Int
-combinedExample initialString = do
+combinedExample initialState = do
   tell "Starting combined example"
   put 5
-  string <- liftIO $ return initialString
-  liftIO $ putStrLn $ "String from ReaderT: " ++ string
-  liftIO $ putStrLn $ "String from ReaderT: " ++ string
+  liftIO $ putStrLn $ "Initial State: " ++ show initialState
   get >>= \state -> liftIO $ putStrLn $ "State from StateT: " ++ show state
   return 10
 
@@ -73,6 +71,6 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  combinedResult <- runReaderT (runStateT (combinedExample "Initial String" "Reader String") 0)
+  combinedResult <- runReaderT (runStateT (combinedExample 0 "Reader String") 0)
   (resultCombined, logs) <- runWriterT combinedResult
   print resultCombined
