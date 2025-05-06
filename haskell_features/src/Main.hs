@@ -93,13 +93,6 @@ evenOdd (even -> True) = "Even"
 evenOdd (odd -> True)  = "Odd"
 
 -- 4. Template Haskell Example
-
-hello :: Q [Dec]
-hello = do
-  name <- newName "world"
-  return [ FunD (mkName "hello") 
-          [ Clause [] (NormalB (LitE (StringL ("Hello " ++ show name)))) [] ] ]
-
 -- Generate the hello function at compile-time
 $(hello)
 
