@@ -73,7 +73,7 @@ main = do
   putStrLn "\nCombined Example:"
   combinedRunner :: String -> IO (Either Int (Int, [String])) 
   combinedRunner str = do
-    resultReader <- runReaderT (runStateT (combinedExample 0 "Reader String") 0) str
+    resultReader <- runReaderT ("String", ) (runStateT (combinedExample 0 "Reader String") 0)
     let (resultCombined, logs) = runWriterT resultReader
     return (Left resultCombined, Right logs)
   
