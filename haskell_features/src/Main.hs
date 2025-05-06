@@ -7,6 +7,8 @@
 {-# LANGUAGE StandaloneKindSignatures #-}
 {-# LANGUAGE MultiParamTypeClasses   #-}
 {-# LANGUAGE FlexibleInstances       #-}
+{-# LANGUAGE FunctionalDependencies  #-}
+{-# LANGUAGE UndecidableInstances    #-}
 module Main where
 
 import Control.Monad.State
