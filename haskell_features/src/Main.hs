@@ -33,7 +33,7 @@ writerTExample = do
 type ContTExample r = ContT r IO Int
 
 contTExample :: ContTExample r
-contTExample = \k -> do
+contTExample = ContT $ \k -> do
   putStrLn "Performing some action"
   k 10
 
