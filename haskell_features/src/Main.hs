@@ -5,6 +5,7 @@ import Control.Monad.Reader
 import Control.Monad.Writer
 import Control.Monad.Cont
 import Control.Monad.Trans
+import Data.Data
 
 -- Example using StateT
 type StateTExample = StateT Int IO
@@ -67,7 +68,6 @@ data Person = Person { name :: String, age :: Int } deriving (Show, Read)
 instance Printable Person  -- Uses default implementations
 
 -- 2. Generic Programming with Data.Data
-import Data.Data
 import GHC.Generics (Generic)
 
 data Tree a = Leaf a | Branch (Tree a) (Tree a) deriving (Data, Generic, Show)
