@@ -41,17 +41,18 @@ contTExample = ContT $ \k -> do
 type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
 
 combinedExample :: Int -> String -> CombinedTransformer Int
-combinedExample _initialState = do -- Renamed initialState as it's not used directly after the liftIO line
-  lift $ lift $ tell "Starting combined example. " -- Added space for clarity
-  inputString <- lift ask -- Get the string from ReaderT
+combinedExample _initialState = do
+  -- WriterT is the innermost layer, so we need two lifts to reach it
+  tell "Starting combined example. "
+  inputString <- ask
   liftIO $ putStrLn $ "Input String from ReaderT: " ++ inputString
   put 5
   currentState <- get
   liftIO $ putStrLn $ "Set State to: " ++ show currentState
-  modify (+ 10) -- Modify state
+  modify (+ 10)
   newState <- get
-  lift $ tell $ "Modified state to: " ++ show newState ++ ". " -- Log modification
-  return newState -- Return the final state
+  tell $ "Modified state to: " ++ show newState ++ ". "
+  return newState
 
 -- Runner for the combined example
 combinedRunner :: String -> IO ((Int, Int), String)
