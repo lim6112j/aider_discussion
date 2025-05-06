@@ -1,7 +1,9 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE ViewPatterns #-}
-{-# LANGUAGE DataKinds, KindSignatures #-}
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DeriveDataTypeable   #-}
+{-# LANGUAGE DeriveGeneric        #-}
+{-# LANGUAGE TemplateHaskell      #-}
+{-# LANGUAGE ViewPatterns         #-}
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE KindSignatures       #-}
 module Main where
 
 import Control.Monad.State
