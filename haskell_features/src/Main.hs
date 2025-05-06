@@ -2,7 +2,7 @@ module Main where
 
 main :: IO ()
 main = do
-  putStrLn "Haskell Features Example"
+  putStrLn "Hey there! Haskell Features Example"
   putStrLn "--------------------------"
   putStrLn "This demonstrates basic Haskell features:"
   putStrLn "- Pure functions"
@@ -28,21 +28,3 @@ factorial n = n * factorial (n - 1)
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:_) = Just x
-
--- monad example
-import Control.Monad (when)
-import Data.Maybe (fromMaybe)
-
--- Example of using Maybe monad
-safeDivide :: Int -> Int -> Maybe Int
-safeDivide _ 0 = Nothing
-safeDivide a b = Just (a `div` b)
--- Example of using the Maybe monad
-mainWithMaybe :: IO ()
-mainWithMaybe = do
-  let result = safeDivide 10 2
-  case result of
-    Just value -> putStrLn $ "Result: " ++ show value
-    Nothing -> putStrLn "Division by zero"
-  putStrLn "Using Maybe monad for safe division"
-
