@@ -71,6 +71,6 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  combinedResult <- runReaderT (runStateT (combinedExample 0 "Reader String") 0)
-  (resultCombined, logs) <- runWriterT combinedResult
+  readerResult <- runReaderT (runStateT (combinedExample 0 "Reader String") 0)
+  (resultCombined, logs) <- runWriterT readerResult
   print resultCombined
