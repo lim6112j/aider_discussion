@@ -42,7 +42,7 @@ type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
 
 combinedExample :: Int -> String -> CombinedTransformer Int
 combinedExample _initialState = do -- Renamed initialState as it's not used directly after the liftIO line
-  tell "Starting combined example. " -- Added space for clarity
+  lift $ lift $ tell "Starting combined example. " -- Added space for clarity
   inputString <- lift ask -- Get the string from ReaderT
   liftIO $ putStrLn $ "Input String from ReaderT: " ++ inputString
   put 5
