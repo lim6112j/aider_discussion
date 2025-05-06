@@ -41,12 +41,23 @@ contTExample = ContT $ \k -> do
 type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
 
 combinedExample :: Int -> String -> CombinedTransformer Int
-combinedExample initialState = do
-  tell "Starting combined example"
+combinedExample _initialState = do -- Renamed initialState as it's not used directly after the liftIO line
+  tell "Starting combined example. " -- Added space for clarity
+  inputString <- lift ask -- Get the string from ReaderT
+  liftIO $ putStrLn $ "Input String from ReaderT: " ++ inputString
   put 5
-  liftIO $ putStrLn $ "Initial State: " ++ show initialState
-  get >>= \state -> liftIO $ putStrLn $ "State from StateT: " ++ show state
-  return 10
+  currentState <- get
+  liftIO $ putStrLn $ "Set State to: " ++ show currentState
+  modify (+ 10) -- Modify state
+  newState <- get
+  lift $ tell $ "Modified state to: " ++ show newState ++ ". " -- Log modification
+  return newState -- Return the final state
+
+-- Runner for the combined example
+combinedRunner :: String -> IO ((Int, Int), String)
+combinedRunner str = do
+  ((resultCombined, finalState), logs) <- runWriterT (runReaderT (runStateT (combinedExample 0 str) 0) str)
+  return ((resultCombined, finalState), logs)
 
 main :: IO ()
 main = do
@@ -71,13 +82,7 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  combinedRunner :: String -> IO (Either Int (Int, [String]))
-  combinedRunner str = do
-    resultReader <- runReaderT str (runStateT (combinedExample 0 "Reader String") 0)
-    let (resultCombined, logs) = runWriterT resultReader
-    return (Left resultCombined, Right logs)
-  
-  readerResult <- combinedRunner "Reader String"
-  print $ case readerResult of 
-    Left rc -> rc
-    Right logs -> show logs
+  ((resultCombined, finalState), logs) <- combinedRunner "Reader String"
+  putStrLn $ "Combined Result: " ++ show resultCombined
+  putStrLn $ "Final State: " ++ show finalState
+  putStrLn $ "Combined Logs: " ++ logs
