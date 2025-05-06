@@ -1,10 +1,12 @@
-{-# LANGUAGE DeriveDataTypeable   #-}
-{-# LANGUAGE DeriveGeneric        #-}
-{-# LANGUAGE TemplateHaskell      #-}
-{-# LANGUAGE ViewPatterns         #-}
-{-# LANGUAGE DataKinds            #-}
-{-# LANGUAGE KindSignatures       #-}
+{-# LANGUAGE DeriveDataTypeable      #-}
+{-# LANGUAGE DeriveGeneric           #-}
+{-# LANGUAGE TemplateHaskell         #-}
+{-# LANGUAGE ViewPatterns            #-}
+{-# LANGUAGE DataKinds               #-}
+{-# LANGUAGE KindSignatures          #-}
 {-# LANGUAGE StandaloneKindSignatures #-}
+{-# LANGUAGE MultiParamTypeClasses   #-}
+{-# LANGUAGE FlexibleInstances       #-}
 module Main where
 
 import Control.Monad.State
