@@ -6,6 +6,7 @@ build-type:         Simple
 executable haskell-features
   main-is:          Main.hs
   hs-source-dirs:   src
+  other-modules:    TH
   build-depends:    base >=4.14,
                     lens >=5.3,
                     async >=2.2.4,
