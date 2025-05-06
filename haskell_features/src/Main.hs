@@ -14,6 +14,7 @@ import Control.Monad.Trans
 import Data.Data
 import GHC.Generics (Generic)
 import Language.Haskell.TH
+import TH
 import Control.Concurrent
 import Control.Concurrent.STM
 import Control.Concurrent.Async
@@ -68,7 +69,7 @@ combinedExample initialState = do
   return newState
 
 -- 1. Type Class with Default Implementation
-class Printable a where
+class (Show a, Read a) => Printable a where
   toString :: a -> String
   toString = show  -- Default implementation using Show
   
