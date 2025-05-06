@@ -40,7 +40,7 @@ contTExample = ContT $ \k -> do
 -- Combining transformers
 type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
 
-combinedExample :: String -> CombinedTransformer Int
+combinedExample :: String -> ReaderT String (WriterT String IO) Int
 combinedExample initialString = do
   tell "Starting combined example"
   put 5
@@ -72,9 +72,9 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  resultCombined <- runStateT
-    (runReaderT
-      (runWriterT (combinedExample "Initial String"))
-      "Reader String")
-    0
+  -- First run the ReaderT with environment
+  readerResult <- runReaderT (combinedExample "Initial String") "Reader String"
+  
+  -- Then run WriterT
+  (resultCombined, logs) <- runWriterT readerResult
   print resultCombined
