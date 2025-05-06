@@ -1,30 +1,76 @@
 module Main where
 
+import Control.Monad.State
+import Control.Monad.Reader
+import Control.Monad.Writer
+import Control.Monad.Cont
+import Control.Monad.Trans
+
+-- Example using StateT
+type StateTExample = StateT Int IO
+
+stateTExample :: StateTExample Int
+stateTExample = do
+  put 10
+  get >>= \x -> return (x + 5)
+
+-- Example using ReaderT
+type ReaderTExample = ReaderT String IO
+
+readerTExample :: ReaderTExample Int
+readerTExample = do
+  ask >>= \s -> return (length s)
+
+-- Example using WriterT
+type WriterTExample = WriterT String IO
+
+writerTExample :: WriterTExample Int
+writerTExample = do
+  tell "Logging some information"
+  return 42
+
+-- Example using ContT
+type ContTExample = ContT IO
+
+contTExample :: ContTExample Int
+contTExample = do
+  let action = \k -> do
+        putStrLn "Performing some action"
+        k 10
+  action
+
+-- Combining transformers
+type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
+
+combinedExample :: String -> CombinedTransformer Int
+combinedExample initialString = do
+  tell "Starting combined example"
+  put 5
+  string <- liftIO $ return initialString
+  liftIO $ putStrLn $ "String from ReaderT: " ++ string
+  get >>= \state -> liftIO $ putStrLn $ "State from StateT: " ++ show state
+  return 10
+
 main :: IO ()
 main = do
-  putStrLn "Hey there! Haskell Features Example"
-  putStrLn "--------------------------"
-  putStrLn "This demonstrates basic Haskell features:"
-  putStrLn "- Pure functions"
-  putStrLn "- Pattern matching"
-  putStrLn "- Type system"
-  putStrLn "- Recursion"
-  putStrLn "- Lazy evaluation"
-  putStrLn ""
-  print (factorial 5)  -- Example of recursion and pattern matching
-  print (add 2 3)      -- Example of pure function
-  print (safeHead [1,2,3])  -- Example of pattern matching
+  putStrLn "StateT Example:"
+  resultState <- runStateT stateTExample 0
+  print resultState
 
--- Pure function example
-add :: Int -> Int -> Int
-add x y = x + y
+  putStrLn "\nReaderT Example:"
+  resultReader <- runReaderT readerTExample "Hello, world!"
+  print resultReader
 
--- Factorial with pattern matching
-factorial :: Int -> Int
-factorial 0 = 1
-factorial n = n * factorial (n - 1)
+  putStrLn "\nWriterT Example:"
+  (resultWriter, logs) <- runWriterT writerTExample
+  print resultWriter
+  putStrLn "Logs:"
+  print logs
 
--- Safe head with pattern matching
-safeHead :: [a] -> Maybe a
-safeHead [] = Nothing
-safeHead (x:_) = Just x
+  putStrLn "\nContT Example:"
+  resultCont <- runContT contTExample
+  print resultCont
+
+  putStrLn "\nCombined Example:"
+  resultCombined <- runStateT (runReaderT (runWriterT combinedExample "Initial String") "Reader String") 0
+  print resultCombined
