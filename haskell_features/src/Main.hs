@@ -71,6 +71,13 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  readerResult <- runReaderT (runStateT (combinedExample 0 "Reader String") 0)
-  (resultCombined, logs) <- runWriterT readerResult
-  print resultCombined
+  combinedRunner :: String -> IO (Either Int (Int, [String])) 
+  combinedRunner str = do
+    resultReader <- runReaderT (runStateT (combinedExample 0 "Reader String") 0) str
+    let (resultCombined, logs) = runWriterT resultReader
+    return (Left resultCombined, Right logs)
+  
+  readerResult <- combinedRunner "Reader String"
+  print $ case readerResult of 
+    Left rc -> rc
+    Right logs -> show logs
