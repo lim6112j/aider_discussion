@@ -33,11 +33,9 @@ writerTExample = do
 type ContTExample r = ContT r IO Int
 
 contTExample :: ContTExample r
-contTExample = do
-  let action = \k -> do
-        putStrLn "Performing some action"
-        k 10
-  action
+contTExample = \k -> do
+  putStrLn "Performing some action"
+  k 10
 
 -- Combining transformers
 type CombinedTransformer = StateT Int (ReaderT String (WriterT String IO))
@@ -74,5 +72,9 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  resultCombined <- runStateT (runReaderT (runWriterT combinedExample "Initial String") "Reader String") 0
+  resultCombined <- runStateT
+    (runReaderT
+      (runWriterT (combinedExample "Initial String"))
+      "Reader String")
+    0
   print resultCombined
