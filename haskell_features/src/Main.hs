@@ -30,9 +30,9 @@ writerTExample = do
   return 42
 
 -- Example using ContT
-type ContTExample = ContT IO
+type ContTExample r = ContT r IO Int
 
-contTExample :: ContTExample Int
+contTExample :: ContTExample r
 contTExample = do
   let action = \k -> do
         putStrLn "Performing some action"
@@ -68,7 +68,9 @@ main = do
   print logs
 
   putStrLn "\nContT Example:"
-  resultCont <- runContT contTExample
+  resultCont <- runContT contTExample (\x -> do
+    print x
+    return ())
   print resultCont
 
   putStrLn "\nCombined Example:"
