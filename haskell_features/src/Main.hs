@@ -20,7 +20,7 @@ import Control.Monad (when)
 import Data.Data
 import GHC.Generics (Generic)
 import Language.Haskell.TH
-import TH
+import qualified TH
 import Control.Concurrent
 import Control.Concurrent.STM
 import Control.Concurrent.Async
@@ -101,7 +101,7 @@ evenOdd (odd -> True)  = "Odd"
 
 -- 4. Template Haskell Example
 -- Generate the hello function at compile-time
-$(hello)
+$(TH.hello)
 
 -- Explicitly define the hello string for clarity
 helloStr :: String
