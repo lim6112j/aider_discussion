@@ -4,6 +4,7 @@
 {-# LANGUAGE ViewPatterns         #-}
 {-# LANGUAGE DataKinds            #-}
 {-# LANGUAGE KindSignatures       #-}
+{-# LANGUAGE StandaloneKindSignatures #-}
 module Main where
 
 import Control.Monad.State
@@ -19,6 +20,7 @@ import Control.Concurrent
 import Control.Concurrent.STM
 import Control.Concurrent.Async
 import Data.Proxy
+import GHC.Exts (Constraint)
 import Control.Lens
 -- Example using StateT
 type StateTExample = StateT Int IO
