@@ -46,6 +46,7 @@ combinedExample initialString = do
   put 5
   string <- liftIO $ return initialString
   liftIO $ putStrLn $ "String from ReaderT: " ++ string
+  liftIO $ putStrLn $ "String from ReaderT: " ++ string
   get >>= \state -> liftIO $ putStrLn $ "State from StateT: " ++ show state
   return 10
 
@@ -72,6 +73,6 @@ main = do
   print resultCont
 
   putStrLn "\nCombined Example:"
-  combinedResult <- runReaderT (runStateT (combinedExample "Initial String") 0)
+  combinedResult <- runReaderT (runStateT (combinedExample "Initial String" "Reader String") 0)
   (resultCombined, logs) <- runWriterT combinedResult
   print resultCombined
