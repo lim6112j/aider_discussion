@@ -16,6 +16,7 @@ import Control.Monad.Reader
 import Control.Monad.Writer
 import Control.Monad.Cont
 import Control.Monad.Trans
+import Control.Monad (when)
 import Data.Data
 import GHC.Generics (Generic)
 import Language.Haskell.TH
@@ -102,6 +103,10 @@ evenOdd (odd -> True)  = "Odd"
 -- Generate the hello function at compile-time
 $(hello)
 
+-- Explicitly define the hello string for clarity
+helloStr :: String
+helloStr = hello
+
 -- 5. STM Concurrency Example
 
 bankTransfer :: TVar Int -> TVar Int -> Int -> IO ()
@@ -182,7 +187,7 @@ main = do
 
   -- Template Haskell demo
   putStrLn "\n4. Template Haskell:"
-  putStrLn hello
+  putStrLn helloStr
 
   -- STM Concurrency demo
   putStrLn "\n5. STM Concurrency:"
