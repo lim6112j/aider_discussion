@@ -57,7 +57,7 @@ combinedExample initialState = do
 -- Runner for the combined example
 combinedRunner :: String -> IO ((Int, Int), String)
 combinedRunner str = do
-  ((resultCombined, finalState), logs) <- runWriterT (runReaderT (runStateT (combinedExample 0) str) 0)
+  ((resultCombined, finalState), logs) <- runWriterT (runReaderT (runStateT (combinedExample 0) 0) str)
   return ((resultCombined, finalState), logs)
 
 main :: IO ()
