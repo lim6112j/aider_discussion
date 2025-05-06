@@ -1,3 +1,7 @@
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE DataKinds, KindSignatures #-}
+{-# LANGUAGE TemplateHaskell #-}
 module Main where
 
 import Control.Monad.State
@@ -7,7 +11,12 @@ import Control.Monad.Cont
 import Control.Monad.Trans
 import Data.Data
 import GHC.Generics (Generic)
-
+import Language.Haskell.TH
+import Control.Concurrent
+import Control.Concurrent.STM
+import Control.Concurrent.Async
+import Data.Proxy
+import Control.Lens
 -- Example using StateT
 type StateTExample = StateT Int IO
 
@@ -76,14 +85,11 @@ treeDepth (Leaf _) = 1
 treeDepth (Branch l r) = 1 + max (treeDepth l) (treeDepth r)
 
 -- 3. View Patterns
-{-# LANGUAGE ViewPatterns #-}
 evenOdd :: Int -> String
 evenOdd (even -> True) = "Even"
 evenOdd (odd -> True)  = "Odd"
 
 -- 4. Template Haskell Example
-{-# LANGUAGE TemplateHaskell #-}
-import Language.Haskell.TH
 
 hello :: Q [Dec]
 hello = do
@@ -95,9 +101,6 @@ hello = do
 $(hello)
 
 -- 5. STM Concurrency Example
-import Control.Concurrent
-import Control.Concurrent.STM
-import Control.Concurrent.Async
 
 bankTransfer :: TVar Int -> TVar Int -> Int -> IO ()
 bankTransfer from to amount = atomically $ do
@@ -107,8 +110,6 @@ bankTransfer from to amount = atomically $ do
   modifyTVar to (+ amount)
 
 -- 6. Type-Level Programming
-{-# LANGUAGE DataKinds, KindSignatures #-}
-import Data.Proxy
 
 data Nat = Z | S Nat
 
@@ -118,8 +119,6 @@ instance Add Z b b
 instance Add a b c => Add (S a) b (S c)
 
 -- 7. Lens Example
-{-# LANGUAGE TemplateHaskell #-}
-import Control.Lens
 
 data Point = Point { _x :: Double, _y :: Double } deriving Show
 makeLenses ''Point
