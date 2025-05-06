@@ -176,7 +176,7 @@ main = do
 
   -- Template Haskell demo
   putStrLn "\n4. Template Haskell:"
-  print hello
+  putStrLn hello
 
   -- STM Concurrency demo
   putStrLn "\n5. STM Concurrency:"
