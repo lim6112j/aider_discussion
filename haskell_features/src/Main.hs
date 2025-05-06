@@ -176,9 +176,10 @@ main = do
 
   -- Generic Programming demo
   putStrLn "\n2. Generic Programming:"
-  let tree = Branch (Leaf 1) (Branch (Leaf 2) (Leaf 3))
-  print $ treeDepth tree
-  print $ toConstr (Leaf 1)  -- Using Data.Data methods
+  let tree :: Tree Int
+      tree = Branch (Leaf (1 :: Int)) (Branch (Leaf (2 :: Int)) (Leaf (3 :: Int))
+  print (treeDepth tree)
+  print $ toConstr (Leaf (1 :: Int))  -- Using Data.Data methods
 
   -- View Patterns demo
   putStrLn "\n3. View Patterns:"
